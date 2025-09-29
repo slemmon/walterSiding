@@ -19,37 +19,77 @@
         --brand:#0b5cff;
         --accent:#ff7a18;
         --bg:#ffffff;
+        --bg-gradient-from:#f8fafc;
+        --bg-gradient-to:#ffffff;
+        --text:#111827;
         --muted:#6b7280;
-        --max-width:1100px;
+        --card-bg:#ffffff;
+        --card-border:rgba(16,24,40,0.03);
+        --content-width:1200px;
         --shadow: 0 6px 18px rgba(11,92,255,0.08);
         --radius:10px;
-        --container-padding:20px;
+        --side-padding:48px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --brand:#3b82f6;
+          --accent:#f97316;
+          --bg:#030712;
+          --bg-gradient-from:#030712;
+          --bg-gradient-to:#111827;
+          --text:#f1f5f9;
+          --muted:#94a3b8;
+          --card-bg:#1e293b;
+          --card-border:rgba(255,255,255,0.03);
+          --shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
       }
       *{box-sizing:border-box}
       html,body{height:100%}
       body{
-        margin:0;font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;color:#111827;background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
-        -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+        margin:0;
+        padding:24px 0;
+        font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;
+        color:var(--text);
+        background:linear-gradient(180deg,var(--bg-gradient-from) 0%, var(--bg-gradient-to) 100%);
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
       }
       a{color:var(--brand);text-decoration:none}
       img{max-width:100%;display:block}
 
       /* Layout */
-      .wrap{max-width:var(--max-width);margin:0 auto;padding:var(--container-padding)}
-      header.site{background:transparent;position:sticky;top:0;z-index:40;padding-top:12px}
+      .wrap{
+        width:100%;
+        max-width:calc(var(--content-width) + (2 * var(--side-padding)));
+        margin-left:auto;
+        margin-right:auto;
+        padding-left:var(--side-padding);
+        padding-right:var(--side-padding);
+        box-sizing:border-box;
+      }
+      .wrap > *{
+        max-width:var(--content-width);
+        margin-left:auto;
+        margin-right:auto;
+        width:100%;
+      }
+      header.site{background:var(--bg);position:sticky;top:0;z-index:40;padding:12px 0}
       .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
       .brand{display:flex;align-items:center;gap:12px}
       .brand .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
       nav.desktop{display:flex;gap:20px;align-items:center}
       button.cta{background:var(--brand);color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;box-shadow:var(--shadow)}
 
-      /* Mobile nav */
-      .mobile-toggle{display:none;background:none;border:0;font-size:20px}
-      .mobile-nav{display:none}
+  /* Mobile nav */
+  .mobile-toggle{display:none;background:none;border:0;font-size:20px}
+  .mobile-nav{display:none}
+  /* Ensure the mobile menu is hidden by default on larger screens */
+  .mobile-menu{display:none}
 
       /* Hero */
-      .hero{display:flex;align-items:center;gap:40px;padding:40px 0}
-      .hero-left{flex:1}
+      .hero{display:flex;align-items:center;gap:40px;padding:40px var(--side-padding)}
+      .hero-left{flex:1;padding-left:var(--side-padding)}
       .eyebrow{color:var(--muted);font-weight:600}
       h1{font-size:clamp(28px,4.5vw,44px);margin:10px 0 16px;line-height:1.05}
       p.lead{color:var(--muted);max-width:60ch}
@@ -57,18 +97,12 @@
 
       /* Cards */
       .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-      .card{background:white;padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.03)}
+      .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--card-border)}
       .service{display:flex;gap:12px;align-items:flex-start}
 
       /* Gallery */
       .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
       .gallery button{padding:0;border-radius:8px;overflow:hidden;border:0;background:none;cursor:pointer}
-
-      /* Contact */
-      .contact-card{background:linear-gradient(180deg,#ffffff,#fbfbfe);padding:18px;border-radius:12px;border:1px solid rgba(16,24,40,0.03);box-shadow:var(--shadow)}
-      form .row{display:flex;gap:12px}
-      input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef}
-      textarea{min-height:110px}
 
       footer{padding:30px 0;color:var(--muted);font-size:14px}
 
@@ -78,13 +112,34 @@
       .lightbox img{max-height:85vh;border-radius:10px;box-shadow:0 20px 40px rgba(2,6,23,0.6)}
 
       /* Responsive */
+      @media (min-width: 1201px) {
+        body {
+          --side-padding: 64px;
+        }
+      }
+
+      @media (max-width: 1200px) {
+        body {
+          --side-padding: 48px;
+        }
+      }
+
       @media (max-width: 900px){
+        body {
+          --side-padding: 32px;
+        }
         .grid{grid-template-columns:repeat(2,1fr)}
         .gallery{grid-template-columns:repeat(2,1fr)}
-        .hero{flex-direction:column}
+        .hero{flex-direction:column;padding:40px var(--side-padding)}
+        .hero-left{padding-left:var(--side-padding)}
         .hero-right{order:-1}
       }
+
       @media (max-width:700px){
+        body{
+          padding:16px 0;
+          --side-padding: 24px;
+        }
         .nav{align-items:center}
         nav.desktop{display:none}
         .mobile-toggle{display:block}
@@ -94,12 +149,14 @@
         .grid{grid-template-columns:1fr}
         .gallery{grid-template-columns:1fr}
         header.site{padding:12px 0}
+        .hero{padding:40px var(--side-padding)}
+        .hero-left{padding-left:var(--side-padding)}
       }
 
       /* small helpers */
       .muted{color:var(--muted)}
       .chips{display:flex;gap:8px;flex-wrap:wrap}
-      .chip{background:#f1f5f9;padding:6px 10px;border-radius:999px;font-weight:600;color:#0f172a}
+      .chip{background:var(--card-bg);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--text)}
     </style>
   </head>
   <body>
@@ -117,8 +174,8 @@
           <a href="#services">Services</a>
           <a href="#gallery">Gallery</a>
           <a href="#testimonials">Testimonials</a>
-          <a href="#contact">Contact</a>
-          <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+          <a href="#about">About</a>
+          <button class="cta" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
         </nav>
 
         <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this)">&#9776;</button>
@@ -126,8 +183,8 @@
           <a href="#services" onclick="closeMenu()">Services</a><br>
           <a href="#gallery" onclick="closeMenu()">Gallery</a><br>
           <a href="#testimonials" onclick="closeMenu()">Testimonials</a><br>
-          <a href="#contact" onclick="closeMenu()">Contact</a><br>
-          <button class="cta" style="margin-top:10px" onclick="contactFromMenu()">Get a Quote</button>
+          <a href="#about" onclick="closeMenu()">About</a><br>
+          <button class="cta" style="margin-top:10px" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
         </div>
       </div>
     </header>
@@ -194,31 +251,42 @@
         </div>
       </section>
 
-      <section class="wrap" id="contact" style="margin-top:30px;margin-bottom:30px;">
-        <h2>Contact Us</h2>
-        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:12px">
-          <div>
-            <p class="muted">Reach out for a free estimate or to schedule an inspection. We typically respond within one business day.</p>
-            <form id="contactForm" class="contact-card" onsubmit="submitForm(event)">
-              <label class="muted">Full name<input name="name" required placeholder="Your name"></label>
-              <div class="row" style="margin-top:8px">
-                <label style="flex:1" class="muted">Phone<input name="phone" required placeholder="(555) 555-5555"></label>
-                <label style="flex:1" class="muted">Email<input name="email" type="email" placeholder="you@example.com"></label>
+      <section class="wrap" id="about" style="margin-top:30px;margin-bottom:30px;">
+        <h2>About Us</h2>
+        <div style="display:grid;grid-template-columns:1fr 400px;gap:48px;margin-top:24px;align-items:start">
+          <div style="padding-left:var(--side-padding)">
+            <h3 style="margin-top:0;font-size:24px">25+ Years of Craftsmanship</h3>
+            <p class="muted" style="margin:16px 0;line-height:1.6">
+              Since founding Walter Siding in 1998, Richard Walter has personally overseen every project with the same attention to detail that built his reputation in the early days. What started as a one-man operation has grown through word-of-mouth into the region's most trusted name in residential siding.
+            </p>
+            <p class="muted" style="margin:16px 0;line-height:1.6">
+              "I believe in doing things right the first time. Every home we work on gets the same care I'd give my own house. That's why most of our business comes from happy customers telling their neighbors about us."
+            </p>
+            <div class="card" style="margin-top:24px">
+              <div style="display:flex;gap:16px;align-items:center">
+                <div style="font-size:24px;color:var(--brand)">📞</div>
+                <div>
+                  <div style="font-weight:600">Ready to get started?</div>
+                  <div style="font-size:20px;margin-top:4px">
+                    <a href="tel:+1234567890" style="text-decoration:none">(123) 456-7890</a>
+                  </div>
+                  <div class="muted" style="margin-top:4px">Free estimates • Licensed & Insured (LIC-12345)</div>
+                </div>
               </div>
-              <label class="muted" style="margin-top:8px">Message<textarea name="message" placeholder="Tell us about your project"></textarea></label>
-              <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
-                <button class="cta" type="submit">Send Request</button>
-                <a href="mailto:info@example.com" class="muted">Or email: info@example.com</a>
-              </div>
-            </form>
+            </div>
           </div>
 
-          <div>
-            <div class="contact-card">
-              <h3 style="margin-top:0">Need help now?</h3>
-              <p class="muted">Call us directly for urgent questions or same-week estimates.</p>
-              <div style="font-weight:700;font-size:18px;margin-top:8px">(123) 456-7890</div>
-              <p class="muted" style="margin-top:8px">Licenses: LIC-12345 | Insured</p>
+          <div style="position:relative">
+            <div style="position:sticky;top:100px">
+              <div style="aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.05)">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='800'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%230b5cff'>Owner portrait placeholder</text></svg>" 
+                     alt="Richard Walter, founder of Walter Siding"
+                     style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div style="text-align:center;margin-top:12px">
+                <div style="font-weight:600">Richard Walter</div>
+                <div class="muted">Founder & Master Installer</div>
+              </div>
             </div>
           </div>
         </div>
@@ -274,24 +342,6 @@
       function closeLightbox(){
         lightbox.classList.remove('open');
         lightbox.setAttribute('aria-hidden', true);
-      }
-
-      // Simple form submit: client-side validation, then open a mailto as fallback
-      function submitForm(e){
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const name = data.get('name')?.trim();
-        const phone = data.get('phone')?.trim();
-        const email = data.get('email')?.trim();
-        if(!name || !phone){
-          alert('Please provide your name and phone number so we can reach you.');
-          return;
-        }
-        // Basic success UX: open user's mail client with prefilled message
-        const subject = encodeURIComponent('Estimate request from ' + name);
-        const body = encodeURIComponent('Name: '+name+'\nPhone: '+phone+'\nEmail: '+(email||'')+'\n\nMessage:\n'+(data.get('message')||''));
-        window.location.href = 'mailto:info@example.com?subject='+subject+'&body='+body;
       }
 
       // small runtime niceties
