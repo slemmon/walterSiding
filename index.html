@@ -1,0 +1,304 @@
+<!doctype html>
+<!--
+  Single-file responsive template for a siding business.
+  - No external dependencies (HTML/CSS/JS only)
+  - Responsive layout: desktop and mobile-friendly
+  - Sections: hero, about, services, gallery, testimonials, contact, footer
+  - Lightbox gallery, mobile nav, smooth scroll, simple form validation
+  Customize copy, colors, and images as needed.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Professional siding installation & repair — quality work, dependable teams, free estimates." />
+    <title>Walter Siding — Siding Installation & Repair</title>
+    <style>
+      /* Reset & base */
+      :root{
+        --brand:#0b5cff;
+        --accent:#ff7a18;
+        --bg:#ffffff;
+        --muted:#6b7280;
+        --max-width:1100px;
+        --shadow: 0 6px 18px rgba(11,92,255,0.08);
+        --radius:10px;
+        --container-padding:20px;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;color:#111827;background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
+        -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+      }
+      a{color:var(--brand);text-decoration:none}
+      img{max-width:100%;display:block}
+
+      /* Layout */
+      .wrap{max-width:var(--max-width);margin:0 auto;padding:var(--container-padding)}
+      header.site{background:transparent;position:sticky;top:0;z-index:40;padding-top:12px}
+      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+      .brand{display:flex;align-items:center;gap:12px}
+      .brand .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+      nav.desktop{display:flex;gap:20px;align-items:center}
+      button.cta{background:var(--brand);color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;box-shadow:var(--shadow)}
+
+      /* Mobile nav */
+      .mobile-toggle{display:none;background:none;border:0;font-size:20px}
+      .mobile-nav{display:none}
+
+      /* Hero */
+      .hero{display:flex;align-items:center;gap:40px;padding:40px 0}
+      .hero-left{flex:1}
+      .eyebrow{color:var(--muted);font-weight:600}
+      h1{font-size:clamp(28px,4.5vw,44px);margin:10px 0 16px;line-height:1.05}
+      p.lead{color:var(--muted);max-width:60ch}
+      .hero-cta{display:flex;gap:12px;margin-top:18px}
+
+      /* Cards */
+      .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+      .card{background:white;padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.03)}
+      .service{display:flex;gap:12px;align-items:flex-start}
+
+      /* Gallery */
+      .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+      .gallery button{padding:0;border-radius:8px;overflow:hidden;border:0;background:none;cursor:pointer}
+
+      /* Contact */
+      .contact-card{background:linear-gradient(180deg,#ffffff,#fbfbfe);padding:18px;border-radius:12px;border:1px solid rgba(16,24,40,0.03);box-shadow:var(--shadow)}
+      form .row{display:flex;gap:12px}
+      input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef}
+      textarea{min-height:110px}
+
+      footer{padding:30px 0;color:var(--muted);font-size:14px}
+
+      /* Lightbox */
+      .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}
+      .lightbox.open{opacity:1;pointer-events:auto}
+      .lightbox img{max-height:85vh;border-radius:10px;box-shadow:0 20px 40px rgba(2,6,23,0.6)}
+
+      /* Responsive */
+      @media (max-width: 900px){
+        .grid{grid-template-columns:repeat(2,1fr)}
+        .gallery{grid-template-columns:repeat(2,1fr)}
+        .hero{flex-direction:column}
+        .hero-right{order:-1}
+      }
+      @media (max-width:700px){
+        .nav{align-items:center}
+        nav.desktop{display:none}
+        .mobile-toggle{display:block}
+        .mobile-nav{display:block}
+        .mobile-menu{display:none;background:white;border-radius:12px;position:absolute;right:20px;top:64px;box-shadow:var(--shadow);padding:12px;width:220px}
+        .mobile-menu.open{display:block}
+        .grid{grid-template-columns:1fr}
+        .gallery{grid-template-columns:1fr}
+        header.site{padding:12px 0}
+      }
+
+      /* small helpers */
+      .muted{color:var(--muted)}
+      .chips{display:flex;gap:8px;flex-wrap:wrap}
+      .chip{background:#f1f5f9;padding:6px 10px;border-radius:999px;font-weight:600;color:#0f172a}
+    </style>
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap nav">
+        <div class="brand">
+          <div class="logo" aria-hidden>WS</div>
+          <div>
+            <div style="font-weight:700">Walter Siding</div>
+            <div style="font-size:12px;color:var(--muted)">Roofing & Exterior • Free estimates</div>
+          </div>
+        </div>
+
+        <nav class="desktop" aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+          <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+        </nav>
+
+        <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this)">&#9776;</button>
+        <div id="mobile-menu" class="mobile-menu" role="menu" aria-hidden="true">
+          <a href="#services" onclick="closeMenu()">Services</a><br>
+          <a href="#gallery" onclick="closeMenu()">Gallery</a><br>
+          <a href="#testimonials" onclick="closeMenu()">Testimonials</a><br>
+          <a href="#contact" onclick="closeMenu()">Contact</a><br>
+          <button class="cta" style="margin-top:10px" onclick="contactFromMenu()">Get a Quote</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap hero" id="home">
+        <div class="hero-left">
+          <div class="eyebrow">Family-owned since 1998</div>
+          <h1>Quality siding installation & repair — dependable crews, honest pricing</h1>
+          <p class="lead">We install vinyl, fiber cement, and engineered siding. Fast turnaround, licensed crews, and a satisfaction guarantee. Serving the local area with free estimates.</p>
+          <div class="hero-cta">
+            <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Estimate</button>
+            <a href="tel:+1234567890" class="muted" style="align-self:center">Call: (123) 456-7890</a>
+          </div>
+          <div style="margin-top:18px" class="chips">
+            <div class="chip">Licensed & Insured</div>
+            <div class="chip">Free Estimates</div>
+            <div class="chip">5-Year Warranty</div>
+          </div>
+        </div>
+
+        <div class="hero-right" style="flex:1;display:flex;align-items:center;justify-content:center">
+          <div style="width:100%;max-width:520px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.04)">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='36' fill='%230b5cff'>Hero image placeholder</text></svg>" alt="Siding project preview placeholder">
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="services">
+        <h2>Our Services</h2>
+        <p class="muted">Installation, repair, replacement and exterior trim — trusted craftsmanship.</p>
+        <div class="grid" style="margin-top:16px">
+          <div class="card">
+            <strong>Vinyl Siding</strong>
+            <p class="muted">Durable, low-maintenance siding with many color options.</p>
+          </div>
+          <div class="card">
+            <strong>Fiber Cement</strong>
+            <p class="muted">Premium look with excellent longevity and fire resistance.</p>
+          </div>
+          <div class="card">
+            <strong>Repair & Replacement</strong>
+            <p class="muted">Patch, replace or full exterior refresh — we handle it all.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="gallery" style="margin-top:30px">
+        <h2>Project Gallery</h2>
+        <p class="muted">Tap an image to enlarge. Replace these placeholders with your photos.</p>
+        <div class="gallery" style="margin-top:12px">
+          <button onclick="openLightbox(0)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23f3f4f6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%236b7280'>Photo 1</text></svg>" alt="Project photo 1"></button>
+          <button onclick="openLightbox(1)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%230b5cff'>Photo 2</text></svg>" alt="Project photo 2"></button>
+          <button onclick="openLightbox(2)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23fff7ed'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%23ff7a18'>Photo 3</text></svg>" alt="Project photo 3"></button>
+        </div>
+      </section>
+
+      <section class="wrap" id="testimonials" style="margin-top:30px">
+        <h2>What Customers Say</h2>
+        <div class="grid" style="margin-top:12px">
+          <div class="card"><strong>Great job!</strong><p class="muted">"Fast, clean, and professional. Our siding looks brand new." — J. Harper</p></div>
+          <div class="card"><strong>Highly recommend</strong><p class="muted">"Excellent communication and fair pricing." — K. Rivera</p></div>
+          <div class="card"><strong>Five stars</strong><p class="muted">"Timely and thorough. Warranty honored without question." — L. Chen</p></div>
+        </div>
+      </section>
+
+      <section class="wrap" id="contact" style="margin-top:30px;margin-bottom:30px;">
+        <h2>Contact Us</h2>
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:12px">
+          <div>
+            <p class="muted">Reach out for a free estimate or to schedule an inspection. We typically respond within one business day.</p>
+            <form id="contactForm" class="contact-card" onsubmit="submitForm(event)">
+              <label class="muted">Full name<input name="name" required placeholder="Your name"></label>
+              <div class="row" style="margin-top:8px">
+                <label style="flex:1" class="muted">Phone<input name="phone" required placeholder="(555) 555-5555"></label>
+                <label style="flex:1" class="muted">Email<input name="email" type="email" placeholder="you@example.com"></label>
+              </div>
+              <label class="muted" style="margin-top:8px">Message<textarea name="message" placeholder="Tell us about your project"></textarea></label>
+              <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+                <button class="cta" type="submit">Send Request</button>
+                <a href="mailto:info@example.com" class="muted">Or email: info@example.com</a>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <div class="contact-card">
+              <h3 style="margin-top:0">Need help now?</h3>
+              <p class="muted">Call us directly for urgent questions or same-week estimates.</p>
+              <div style="font-weight:700;font-size:18px;margin-top:8px">(123) 456-7890</div>
+              <p class="muted" style="margin-top:8px">Licenses: LIC-12345 | Insured</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div>© <span id="year"></span> Walter Siding — All rights reserved.</div>
+        <div class="muted">Serving the local community • <a href="#contact">Request a free estimate</a></div>
+      </div>
+    </footer>
+
+    <!-- Lightbox for gallery images -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true" aria-label="Image preview" onclick="closeLightbox()">
+      <img id="lightboxImg" src="" alt="Large project photo">
+    </div>
+
+    <script>
+      // Small helper scripts: mobile menu, lightbox, form handling
+      const mobileMenu = document.getElementById('mobile-menu');
+      function toggleMenu(btn){
+        const menu = document.getElementById('mobile-menu');
+        const open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+        menu.setAttribute('aria-hidden', !open);
+      }
+      function closeMenu(){
+        const btn = document.querySelector('.mobile-toggle');
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.remove('open');
+        if(btn) btn.setAttribute('aria-expanded', false);
+        menu.setAttribute('aria-hidden', true);
+      }
+      function contactFromMenu(){
+        closeMenu();
+        document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      }
+
+      // Lightbox images: these are data-URIs now; replace srcs with real image URLs
+      const gallerySrcs = [
+        document.querySelectorAll('.gallery img')[0].src,
+        document.querySelectorAll('.gallery img')[1].src,
+        document.querySelectorAll('.gallery img')[2].src
+      ];
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      function openLightbox(i){
+        lbImg.src = gallerySrcs[i] || '';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', false);
+      }
+      function closeLightbox(){
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', true);
+      }
+
+      // Simple form submit: client-side validation, then open a mailto as fallback
+      function submitForm(e){
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const name = data.get('name')?.trim();
+        const phone = data.get('phone')?.trim();
+        const email = data.get('email')?.trim();
+        if(!name || !phone){
+          alert('Please provide your name and phone number so we can reach you.');
+          return;
+        }
+        // Basic success UX: open user's mail client with prefilled message
+        const subject = encodeURIComponent('Estimate request from ' + name);
+        const body = encodeURIComponent('Name: '+name+'\nPhone: '+phone+'\nEmail: '+(email||'')+'\n\nMessage:\n'+(data.get('message')||''));
+        window.location.href = 'mailto:info@example.com?subject='+subject+'&body='+body;
+      }
+
+      // small runtime niceties
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Accessibility: close lightbox with Esc
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeLightbox(); closeMenu(); } });
+    </script>
+  </body>
+</html>
