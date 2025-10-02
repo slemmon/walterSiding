@@ -82,7 +82,7 @@
       button.cta{background:var(--brand);color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;box-shadow:var(--shadow)}
 
   /* Mobile nav */
-  .mobile-toggle{display:none;background:none;border:0;font-size:20px}
+  .mobile-toggle{display:none;background:none;border:0;font-size:20px;flex:0}
   .mobile-nav{display:none}
   /* Ensure the mobile menu is hidden by default on larger screens */
   .mobile-menu{display:none}
@@ -100,9 +100,93 @@
       .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--card-border)}
       .service{display:flex;gap:12px;align-items:flex-start}
 
-      /* Gallery */
-      .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-      .gallery button{padding:0;border-radius:8px;overflow:hidden;border:0;background:none;cursor:pointer}
+      /* Carousel */
+      .carousel {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .carousel-main {
+        position: relative;
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 16px;
+      }
+      .carousel-view {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        border-radius: var(--radius);
+      }
+      .carousel-view img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--card-bg);
+        color: var(--brand);
+        border: 1px solid var(--card-border);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 2px rgba(0,0,0,0.1);
+      }
+      .carousel-nav:hover {
+        background: var(--brand);
+        color: white;
+      }
+      .carousel-nav.prev { left: -20px; }
+      .carousel-nav.next { right: -20px; }
+      
+      /* Thumbnails */
+      .carousel-thumbs {
+        overflow-x: auto;
+        padding: 10px 0;
+        margin: 0 -10px;
+        scrollbar-width: none; /* Firefox */
+      }
+      .carousel-thumbs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+      }
+      .thumb-strip {
+        display: flex;
+        gap: 10px;
+        padding: 0 10px;
+      }
+      .thumb {
+        flex: 0 0 100px;
+        height: 70px;
+        padding: 0;
+        border: 2px solid transparent;
+        border-radius: var(--radius);
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.2s;
+      }
+      .thumb:hover {
+        opacity: 0.9;
+      }
+      .thumb.active {
+        border-color: var(--brand);
+        opacity: 1;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
       footer{padding:30px 0;color:var(--muted);font-size:14px}
 
@@ -147,10 +231,29 @@
         .mobile-menu{display:none;background:white;border-radius:12px;position:absolute;right:20px;top:64px;box-shadow:var(--shadow);padding:12px;width:220px}
         .mobile-menu.open{display:block}
         .grid{grid-template-columns:1fr}
-        .gallery{grid-template-columns:1fr}
         header.site{padding:12px 0}
         .hero{padding:40px var(--side-padding)}
-        .hero-left{padding-left:var(--side-padding)}
+        .hero-left{padding-left:0}
+        
+        /* Carousel mobile adjustments */
+        .carousel-main {
+          margin: 0 20px;  /* Make room for nav buttons */
+        }
+        .carousel-nav {
+          width: 36px;
+          height: 36px;
+          font-size: 18px;
+        }
+        .thumb {
+          flex: 0 0 80px;  /* Slightly smaller thumbnails on mobile */
+          height: 60px;
+        }
+      }
+      
+      /* Ensure carousel nav buttons don't overflow on very small screens */
+      @media (max-width: 400px) {
+        .carousel-nav.prev { left: -12px; }
+        .carousel-nav.next { right: -12px; }
       }
 
       /* small helpers */
@@ -206,11 +309,13 @@
           </div>
         </div>
 
+        <!-- Hero image placeholder commented out until we have a hero image
         <div class="hero-right" style="flex:1;display:flex;align-items:center;justify-content:center">
           <div style="width:100%;max-width:520px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.04)">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='36' fill='%230b5cff'>Hero image placeholder</text></svg>" alt="Siding project preview placeholder">
           </div>
         </div>
+        -->
       </section>
 
       <section class="wrap" id="services">
@@ -234,20 +339,55 @@
 
       <section class="wrap" id="gallery" style="margin-top:30px">
         <h2>Project Gallery</h2>
-        <p class="muted">Tap an image to enlarge. Replace these placeholders with your photos.</p>
-        <div class="gallery" style="margin-top:12px">
-          <button onclick="openLightbox(0)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23f3f4f6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%236b7280'>Photo 1</text></svg>" alt="Project photo 1"></button>
-          <button onclick="openLightbox(1)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%230b5cff'>Photo 2</text></svg>" alt="Project photo 2"></button>
-          <button onclick="openLightbox(2)"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23fff7ed'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='24' fill='%23ff7a18'>Photo 3</text></svg>" alt="Project photo 3"></button>
+        <p class="muted">View our recent projects. Click any image to enlarge.</p>
+        
+        <div class="carousel" style="margin-top:24px">
+          <!-- Main image display -->
+          <div class="carousel-main">
+            <button class="carousel-nav prev" aria-label="Previous image">❮</button>
+            <div class="carousel-view">
+              <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding, trim, soffit and fascia installation">
+            </div>
+            <button class="carousel-nav next" aria-label="Next image">❯</button>
+          </div>
+          
+          <!-- Thumbnail strip -->
+          <div class="carousel-thumbs">
+            <div class="thumb-strip">
+              <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg">
+                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding project">
+              </button>
+              <button class="thumb" data-src="images/Before.jpg">
+                <img src="images/Before.jpg" alt="Before renovation">
+              </button>
+              <button class="thumb" data-src="images/After.jpg">
+                <img src="images/After.jpg" alt="After renovation">
+              </button>
+              <button class="thumb" data-src="images/Corten Steel Fireplace 2.jpg">
+                <img src="images/Corten Steel Fireplace 2.jpg" alt="Corten steel fireplace">
+              </button>
+              <button class="thumb" data-src="images/IM Glass Before.jpg">
+                <img src="images/IM Glass Before.jpg" alt="IM Glass before">
+              </button>
+              <button class="thumb" data-src="images/IM Glass Steel Job-After.jpg">
+                <img src="images/IM Glass Steel Job-After.jpg" alt="IM Glass after">
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="wrap" id="testimonials" style="margin-top:30px">
         <h2>What Customers Say</h2>
-        <div class="grid" style="margin-top:12px">
-          <div class="card"><strong>Great job!</strong><p class="muted">"Fast, clean, and professional. Our siding looks brand new." — J. Harper</p></div>
-          <div class="card"><strong>Highly recommend</strong><p class="muted">"Excellent communication and fair pricing." — K. Rivera</p></div>
-          <div class="card"><strong>Five stars</strong><p class="muted">"Timely and thorough. Warranty honored without question." — L. Chen</p></div>
+        <div style="margin-top:12px">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <strong>Complete Home Transformation</strong>
+              <div style="color:var(--accent)">★★★★★</div>
+            </div>
+            <p class="muted">"We had a new siding around our 1940 home and it looks more like a modern home now. We are very pleasure with Richard for doing a great job. A very pleasant, hard-working guy! My cat loved him and he would watch him doing the siding almost all day all week."</p>
+            <div style="margin-top:8px;font-size:14px;color:var(--muted)">— Carey P. • Verified Customer</div>
+          </div>
         </div>
       </section>
 
@@ -262,7 +402,29 @@
             <p class="muted" style="margin:16px 0;line-height:1.6">
               "I believe in doing things right the first time. Every home we work on gets the same care I'd give my own house. That's why most of our business comes from happy customers telling their neighbors about us."
             </p>
-            <div class="card" style="margin-top:24px">
+            <div class="card" style="margin:24px 0">
+              <strong>Professional Credentials</strong>
+              <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px">
+                <div>
+                  <div style="font-weight:600;color:var(--brand)">Certifications</div>
+                  <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
+                    <li>VSI Certified Platinum Level Craftsman</li>
+                    <li>EPA & State Lead Based Paint Renovation Certified</li>
+                    <li>Licensed and Bonded Siding Contractor</li>
+                  </ul>
+                </div>
+                <div>
+                  <div style="font-weight:600;color:var(--brand)">State Licenses</div>
+                  <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
+                    <li>Oregon License: #258038</li>
+                    <li>Washington License: #WALTESL759NE</li>
+                    <li>Idaho Registration: #RCE-69290</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
               <div style="display:flex;gap:16px;align-items:center">
                 <div style="font-size:24px;color:var(--brand)">📞</div>
                 <div>
@@ -316,19 +478,75 @@
         document.getElementById('contact').scrollIntoView({behavior:'smooth'});
       }
 
-      // Lightbox images: these are data-URIs now; replace srcs with real image URLs
-      const gallerySrcs = [
-        document.querySelectorAll('.gallery img')[0].src,
-        document.querySelectorAll('.gallery img')[1].src,
-        document.querySelectorAll('.gallery img')[2].src
-      ];
+      // Carousel functionality
+      const carousel = {
+        view: document.querySelector('.carousel-view img'),
+        thumbs: document.querySelectorAll('.thumb'),
+        navPrev: document.querySelector('.carousel-nav.prev'),
+        navNext: document.querySelector('.carousel-nav.next'),
+        currentIndex: 0,
+        
+        init() {
+          this.thumbs.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => this.showImage(index));
+          });
+          
+          this.navPrev.addEventListener('click', () => this.navigate(-1));
+          this.navNext.addEventListener('click', () => this.navigate(1));
+          
+          // Enable lightbox on main image click
+          this.view.parentElement.addEventListener('click', () => {
+            openLightbox(this.currentIndex);
+          });
+          
+          // Update lightbox sources
+          this.updateLightboxSources();
+        },
+        
+        showImage(index) {
+          this.currentIndex = index;
+          const newSrc = this.thumbs[index].dataset.src;
+          this.view.src = newSrc;
+          
+          // Update active thumbnail
+          this.thumbs.forEach(t => t.classList.remove('active'));
+          this.thumbs[index].classList.add('active');
+          
+          // Scroll thumbnail into view if needed
+          this.thumbs[index].scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+          });
+        },
+        
+        navigate(direction) {
+          let newIndex = this.currentIndex + direction;
+          if (newIndex < 0) newIndex = this.thumbs.length - 1;
+          if (newIndex >= this.thumbs.length) newIndex = 0;
+          this.showImage(newIndex);
+        },
+        
+        updateLightboxSources() {
+          // Update lightbox image sources
+          gallerySrcs = Array.from(this.thumbs).map(thumb => thumb.dataset.src);
+        }
+      };
+      
+      // Initialize carousel when page loads
+      window.addEventListener('load', () => carousel.init());
+      
+      // Lightbox functionality
       const lightbox = document.getElementById('lightbox');
       const lbImg = document.getElementById('lightboxImg');
+      let gallerySrcs = [];
+      
       function openLightbox(i){
         lbImg.src = gallerySrcs[i] || '';
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', false);
       }
+      
       function closeLightbox(){
         lightbox.classList.remove('open');
         lightbox.setAttribute('aria-hidden', true);
