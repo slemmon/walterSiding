@@ -1,275 +1,29 @@
 <!doctype html>
 <!--
-  Single-file responsive template for a siding business.
-  - No external dependencies (HTML/CSS/JS only)
+  Single-page website for Walter Siding & Repair.
   - Responsive layout: desktop and mobile-friendly
-  - Sections: hero, about, services, gallery, testimonials, contact, footer
-  - Lightbox gallery, mobile nav, smooth scroll, simple form validation
-  Customize copy, colors, and images as needed.
+  - Sections: hero, services, gallery, testimonials, about, contact, footer
+  - Lightbox gallery, mobile nav, smooth scroll
 -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="Professional siding installation & repair — quality work, dependable teams, free estimates." />
-    <title>Walter Siding — Siding Installation & Repair</title>
-    <style>
-      /* Reset & base */
-      :root{
-        --brand:#006B5E;
-        --accent:#C6A94D;
-        --bg:#ffffff;
-        --bg-gradient-from:#f8fafc;
-        --bg-gradient-to:#ffffff;
-        --text:#111827;
-        --muted:#6b7280;
-        --card-bg:#ffffff;
-        --card-border:rgba(16,24,40,0.03);
-        --content-width:1200px;
-        --shadow: 0 6px 18px rgba(11,92,255,0.08);
-        --radius:10px;
-        --side-padding:48px;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --brand:#00897B;
-          --accent:#D4B65C;
-          --bg:#030712;
-          --bg-gradient-from:#030712;
-          --bg-gradient-to:#111827;
-          --text:#f1f5f9;
-          --muted:#94a3b8;
-          --card-bg:#1e293b;
-          --card-border:rgba(255,255,255,0.03);
-          --shadow: 0 6px 18px rgba(0,0,0,0.25);
-        }
-      }
-      *{box-sizing:border-box}
-      html,body{height:100%}
-      body{
-        margin:0;
-        padding:24px 0;
-        font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;
-        color:var(--text);
-        background:linear-gradient(180deg,var(--bg-gradient-from) 0%, var(--bg-gradient-to) 100%);
-        -webkit-font-smoothing:antialiased;
-        -moz-osx-font-smoothing:grayscale;
-      }
-      a{color:var(--brand);text-decoration:none}
-      img{max-width:100%;display:block}
-
-      /* Layout */
-      .wrap{
-        width:100%;
-        max-width:calc(var(--content-width) + (2 * var(--side-padding)));
-        margin-left:auto;
-        margin-right:auto;
-        padding-left:var(--side-padding);
-        padding-right:var(--side-padding);
-        box-sizing:border-box;
-      }
-      .wrap > *{
-        max-width:var(--content-width);
-        margin-left:auto;
-        margin-right:auto;
-        width:100%;
-      }
-      header.site{background:var(--bg);position:sticky;top:0;z-index:40;padding:12px 0}
-      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-      .brand{display:flex;align-items:center;gap:12px}
-      .brand .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-      nav.desktop{display:flex;gap:20px;align-items:center}
-      button.cta{background:var(--brand);color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;box-shadow:var(--shadow)}
-
-  /* Mobile nav */
-  .mobile-toggle{display:none;background:none;border:0;font-size:20px;flex:0}
-  .mobile-nav{display:none}
-  /* Ensure the mobile menu is hidden by default on larger screens */
-  .mobile-menu{display:none}
-
-      /* Hero */
-      .hero{display:flex;align-items:center;gap:40px;padding:40px var(--side-padding)}
-      .hero-left{flex:1;padding-left:var(--side-padding)}
-      .eyebrow{color:var(--muted);font-weight:600}
-      h1{font-size:clamp(28px,4.5vw,44px);margin:10px 0 16px;line-height:1.05}
-      p.lead{color:var(--muted);max-width:60ch}
-      .hero-cta{display:flex;gap:12px;margin-top:18px}
-
-      /* Cards */
-      .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-      .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--card-border)}
-      .service{display:flex;gap:12px;align-items:flex-start}
-
-      /* Carousel */
-      .carousel {
-        max-width: 100%;
-        margin: 0 auto;
-      }
-      .carousel-main {
-        position: relative;
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        margin-bottom: 16px;
-      }
-      .carousel-view {
-        aspect-ratio: 16/9;
-        overflow: hidden;
-        border-radius: var(--radius);
-      }
-      .carousel-view img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-      .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: var(--card-bg);
-        color: var(--brand);
-        border: 1px solid var(--card-border);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-        z-index: 2;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 2px rgba(0,0,0,0.1);
-      }
-      .carousel-nav:hover {
-        background: var(--brand);
-        color: white;
-      }
-      .carousel-nav.prev { left: -20px; }
-      .carousel-nav.next { right: -20px; }
-      
-      /* Thumbnails */
-      .carousel-thumbs {
-        overflow-x: auto;
-        padding: 10px 0;
-        margin: 0 -10px;
-        scrollbar-width: none; /* Firefox */
-      }
-      .carousel-thumbs::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
-      }
-      .thumb-strip {
-        display: flex;
-        gap: 10px;
-        padding: 0 10px;
-      }
-      .thumb {
-        flex: 0 0 100px;
-        height: 70px;
-        padding: 0;
-        border: 2px solid transparent;
-        border-radius: var(--radius);
-        overflow: hidden;
-        cursor: pointer;
-        opacity: 0.7;
-        transition: all 0.2s;
-      }
-      .thumb:hover {
-        opacity: 0.9;
-      }
-      .thumb.active {
-        border-color: var(--brand);
-        opacity: 1;
-      }
-      .thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      footer{padding:30px 0;color:var(--muted);font-size:14px}
-
-      /* Lightbox */
-      .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}
-      .lightbox.open{opacity:1;pointer-events:auto}
-      .lightbox img{max-height:85vh;border-radius:10px;box-shadow:0 20px 40px rgba(2,6,23,0.6)}
-
-      /* Responsive */
-      @media (min-width: 1201px) {
-        body {
-          --side-padding: 64px;
-        }
-      }
-
-      @media (max-width: 1200px) {
-        body {
-          --side-padding: 48px;
-        }
-      }
-
-      @media (max-width: 900px){
-        body {
-          --side-padding: 32px;
-        }
-        .grid{grid-template-columns:repeat(2,1fr)}
-        .gallery{grid-template-columns:repeat(2,1fr)}
-        .hero{flex-direction:column;padding:40px var(--side-padding)}
-        .hero-left{padding-left:var(--side-padding)}
-        .hero-right{order:-1}
-      }
-
-      @media (max-width:700px){
-        body{
-          padding:16px 0;
-          --side-padding: 24px;
-        }
-        .nav{align-items:center}
-        nav.desktop{display:none}
-        .mobile-toggle{display:block}
-        .mobile-nav{display:block}
-        .mobile-menu{display:none;background:white;border-radius:12px;position:absolute;right:20px;top:64px;box-shadow:var(--shadow);padding:12px;width:220px}
-        .mobile-menu.open{display:block}
-        .grid{grid-template-columns:1fr}
-        header.site{padding:12px 0}
-        .hero{padding:40px var(--side-padding)}
-        .hero-left{padding-left:0}
-        
-        /* Carousel mobile adjustments */
-        .carousel-main {
-          margin: 0 20px;  /* Make room for nav buttons */
-        }
-        .carousel-nav {
-          width: 36px;
-          height: 36px;
-          font-size: 18px;
-        }
-        .thumb {
-          flex: 0 0 80px;  /* Slightly smaller thumbnails on mobile */
-          height: 60px;
-        }
-      }
-      
-      /* Ensure carousel nav buttons don't overflow on very small screens */
-      @media (max-width: 400px) {
-        .carousel-nav.prev { left: -12px; }
-        .carousel-nav.next { right: -12px; }
-      }
-
-      /* small helpers */
-      .muted{color:var(--muted)}
-      .chips{display:flex;gap:8px;flex-wrap:wrap}
-      .chip{background:var(--card-bg);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--text)}
-    </style>
+    <meta name="description" content="Owner-operated siding repair and installation in Portland, OR. Small fix-ups welcome. Licensed and bonded in OR, WA, and ID. No subcontractors." />
+    <title>Walter Siding & Repair — Siding Repair & Installation</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header class="site">
       <div class="wrap nav">
         <div class="brand">
-          <div class="logo" aria-hidden>WS</div>
+          <div class="logo">
+            <img src="images/logo_small.png" alt="Walter Siding & Repair Logo">
+          </div>
           <div>
-            <div style="font-weight:700">Walter Siding LLC</div>
-            <div style="font-size:12px;color:var(--muted)">VSI Certified Exterior Craftsman • Free Estimates</div>
+            <div style="font-weight:700">Walter Siding & Repair</div>
+            <div style="font-size:12px;color:var(--muted)">Owner-Operated • Siding Repair & Installation • Free Estimates</div>
+            <div style="margin-top:2px;font-weight:600"><a href="tel:+12088597796" style="color:var(--brand-text);text-decoration:none">📞 (208) 859-7796</a></div>
           </div>
         </div>
 
@@ -278,177 +32,216 @@
           <a href="#gallery">Gallery</a>
           <a href="#testimonials">Testimonials</a>
           <a href="#about">About</a>
-          <button class="cta" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+          <a href="#contact">Contact</a>
+          <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Call or Text Me</button>
         </nav>
 
-        <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this)">&#9776;</button>
+        <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this, event)">&#9776;</button>
         <div id="mobile-menu" class="mobile-menu" role="menu" aria-hidden="true">
-          <a href="#services" onclick="closeMenu()">Services</a><br>
-          <a href="#gallery" onclick="closeMenu()">Gallery</a><br>
-          <a href="#testimonials" onclick="closeMenu()">Testimonials</a><br>
-          <a href="#about" onclick="closeMenu()">About</a><br>
-          <button class="cta" style="margin-top:10px" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+          <a href="#services" onclick="closeMenu()">Services</a>
+          <a href="#gallery" onclick="closeMenu()">Gallery</a>
+          <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+          <a href="#about" onclick="closeMenu()">About</a>
+          <a href="#contact" onclick="closeMenu()">Contact</a>
+          <div style="padding: 8px 16px; font-weight:700; border-top: 1px solid var(--card-border); margin-top: 4px;">
+            <a href="tel:+12088597796" style="padding:0; display:inline">📞 (208) 859-7796</a>
+          </div>
+          <div style="padding: 0 16px 8px;">
+            <button class="cta" style="width:100%" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'}); closeMenu();">Call or Text Me</button>
+          </div>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="wrap hero" id="home">
-        <div class="hero-left">
-          <div class="eyebrow">Family-owned since 1998</div>
-          <h1>Expert siding installation by a VSI Certified Craftsman</h1>
-          <p class="lead">Professional installation of vinyl and fiber cement siding, with custom trim solutions. Fast turnaround, expert craftsmanship, and a satisfaction guarantee. Serving the local area with free estimates.</p>
-          <div class="hero-cta">
-            <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Estimate</button>
-            <a href="tel:+12088597796" class="muted" style="align-self:center">Call: (208) 859-7796</a>
-          </div>
-          <div style="margin-top:18px" class="chips">
-            <div class="chip">Licensed & Insured</div>
-            <div class="chip">Free Estimates</div>
-            <div class="chip">5-Year Warranty</div>
-          </div>
-        </div>
-
-        <!-- Hero image placeholder commented out until we have a hero image
-        <div class="hero-right" style="flex:1;display:flex;align-items:center;justify-content:center">
-          <div style="width:100%;max-width:520px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.04)">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='%23e6eefc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='36' fill='%230b5cff'>Hero image placeholder</text></svg>" alt="Siding project preview placeholder">
-          </div>
-        </div>
-        -->
-      </section>
-
-      <section class="wrap" id="services">
-        <h2>Our Services</h2>
-        <p class="muted">Installation, repair, replacement and exterior trim — trusted craftsmanship.</p>
-        <div class="grid" style="margin-top:16px">
-          <div class="card">
-            <strong>VSI Certified Installation</strong>
-            <p class="muted">Expert installation by a certified exterior craftsman.</p>
-          </div>
-          <div class="card">
-            <strong>Quality Materials</strong>
-            <p class="muted">Premium vinyl and fiber cement siding from trusted manufacturers.</p>
-          </div>
-          <div class="card">
-            <strong>Custom Trim Solutions</strong>
-            <p class="muted">Professional trim work to complete your home's exterior.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap" id="gallery" style="margin-top:30px">
-        <h2>Project Gallery</h2>
-        <p class="muted">View our recent projects. Click any image to enlarge.</p>
-        
-        <div class="carousel" style="margin-top:24px">
-          <!-- Main image display -->
-          <div class="carousel-main">
-            <button class="carousel-nav prev" aria-label="Previous image">❮</button>
-            <div class="carousel-view">
-              <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding, trim, soffit and fascia installation">
+      <section class="hero" id="home">
+        <div class="wrap">
+          <div class="hero-left">
+            <div class="eyebrow">Owner-Operated • No Subcontractors</div>
+            <h1>Siding Repair & Installation in Portland, OR</h1>
+            <p class="lead">If you’re looking for reliable siding repair—including vinyl and fiber cement—in Portland, you’re in the right place. I’m an owner-operator with decades of hands-on experience. I show up, I finish the job, and I stand behind my work. Small fix-ups welcome.</p>
+            <div class="hero-cta">
+              <a href="tel:+12088597796" class="cta" style="text-decoration:none">Call or Text for a Straight Answer</a>
             </div>
-            <button class="carousel-nav next" aria-label="Next image">❯</button>
+            <div style="margin-top:18px" class="chips">
+              <div class="chip">Small Jobs Welcome</div>
+              <div class="chip">Decades of Experience</div>
+              <div class="chip">Licensed & Bonded</div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="wrap">
+          <h2>Siding & Trim Solutions</h2>
+          <p class="muted">Expert repair and installation for vinyl and fiber cement—honest advice and thoughtful results on every project.</p>
+          <div class="grid" style="margin-top:16px">
+            <div class="card">
+              <strong>Siding Repair (Vinyl Welcome)</strong>
+              <p class="muted">Handling the small projects many companies avoid. I specialize in vinyl repairs, rotten board replacement, and fixing loose panels thoughtfully so the job lasts.</p>
+            </div>
+            <div class="card">
+              <strong>Custom Trim & Detail Work</strong>
+              <p class="muted">Specializing in window, door, and corner trim—both repairs and new installation. I focus on the details that keep your home weather-tight and looking its best.</p>
+            </div>
+            <div class="card">
+              <strong>Full Siding Installation</strong>
+              <p class="muted">When it’s time for a complete refresh, I handle full siding replacement—including vinyl and fiber cement—with the same accountability and no subcontractors.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt" id="gallery">
+        <div class="wrap">
+          <h2>Project Gallery</h2>
+          <p class="muted">View our recent projects. Click any image to enlarge.</p>
           
-          <!-- Thumbnail strip -->
-          <div class="carousel-thumbs">
+          <div class="carousel" style="margin-top:24px">
+            <!-- Main image display -->
+            <div class="carousel-main">
+              <button class="carousel-nav prev" aria-label="Previous image">❮</button>
+              <div class="carousel-view">
+                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding, trim, soffit and fascia installation">
+              </div>
+              <div class="carousel-caption">Full Siding, Trim, Soffit & Fascia Installation</div>
+              <button class="carousel-nav next" aria-label="Next image">❯</button>
+            </div>
+            
+            <!-- Thumbnail strip -->
+            <div class="carousel-thumbs">
             <div class="thumb-strip">
-              <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg">
+              <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg" data-caption="Full Siding, Trim, Soffit & Fascia Installation">
                 <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding project">
               </button>
-              <button class="thumb" data-src="images/Before.jpg">
+              <button class="thumb" data-src="images/Before.jpg" data-caption="Project: Before Renovation">
                 <img src="images/Before.jpg" alt="Before renovation">
               </button>
-              <button class="thumb" data-src="images/After.jpg">
+              <button class="thumb" data-src="images/After.jpg" data-caption="Project: After Renovation">
                 <img src="images/After.jpg" alt="After renovation">
               </button>
-              <button class="thumb" data-src="images/Corten Steel Fireplace 2.jpg">
+              <button class="thumb" data-src="images/Corten Steel Fireplace 2.jpg" data-caption="Custom Corten Steel Fireplace Detail">
                 <img src="images/Corten Steel Fireplace 2.jpg" alt="Corten steel fireplace">
               </button>
-              <button class="thumb" data-src="images/IM Glass Before.jpg">
+              <button class="thumb" data-src="images/IM Glass Before.jpg" data-caption="Commercial Project: Before">
                 <img src="images/IM Glass Before.jpg" alt="IM Glass before">
               </button>
-              <button class="thumb" data-src="images/IM Glass Steel Job-After.jpg">
+              <button class="thumb" data-src="images/IM Glass Steel Job-After.jpg" data-caption="Commercial Project: Steel Siding After">
                 <img src="images/IM Glass Steel Job-After.jpg" alt="IM Glass after">
               </button>
             </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="wrap" id="testimonials" style="margin-top:30px">
-        <h2>What Customers Say</h2>
-        <div style="margin-top:12px">
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-              <strong>Complete Home Transformation</strong>
-              <div style="color:var(--accent)">★★★★★</div>
-            </div>
-            <p class="muted">"We had a new siding around our 1940 home and it looks more like a modern home now. We are very pleasure with Richard for doing a great job. A very pleasant, hard-working guy! My cat loved him and he would watch him doing the siding almost all day all week."</p>
-            <div style="margin-top:8px;font-size:14px;color:var(--muted)">— Carey P. • Verified Customer</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap" id="about" style="margin-top:30px;margin-bottom:30px;">
-        <h2>About Us</h2>
-        <div style="margin-top:24px">
-          <div style="padding-left:var(--side-padding)">
-            <h3 style="margin-top:0;font-size:24px">Expert Exterior Craftsmanship</h3>
-            <p class="muted" style="margin:16px 0;line-height:1.6">
-              As a VSI Certified Exterior Craftsman, Richard Walter has built Walter Siding LLC on a foundation of expertise and attention to detail. What started as a one-man operation has grown through word-of-mouth into one of the region's most trusted names in residential siding.
-            </p>
-            <p class="muted" style="margin:16px 0;line-height:1.6">
-              "I believe in doing things right the first time. Every home we work on gets the same care I'd give my own house. That's why most of our business comes from happy customers telling their neighbors about us."
-            </p>
-            <div class="card" style="margin:24px 0">
-              <strong>Professional Credentials</strong>
-              <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px">
-                <div>
-                  <div style="font-weight:600;color:var(--brand)">Certifications</div>
-                  <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
-                    <li>VSI Certified Platinum Level Craftsman</li>
-                    <li>EPA & State Lead Based Paint Renovation Certified</li>
-                    <li>Licensed and Bonded Siding Contractor</li>
-                  </ul>
-                </div>
-                <div>
-                  <div style="font-weight:600;color:var(--brand)">State Licenses</div>
-                  <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
-                    <li>Oregon License: #258038</li>
-                    <li>Washington License: #WALTESL759NE</li>
-                    <li>Idaho Registration: #RCE-69290</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
+      <section id="testimonials">
+        <div class="wrap">
+          <h2>What Customers Say</h2>
+          <div class="grid" style="margin-top:16px; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
             <div class="card">
-              <div style="display:flex;gap:16px;align-items:center">
-                <div style="font-size:24px;color:var(--brand)">📞</div>
-                <div>
-                  <div style="font-weight:600">Ready to get started?</div>
-                  <div style="font-size:20px;margin-top:4px">
-                    <a href="tel:+12088597796" style="text-decoration:none">(208) 859-7796</a>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <strong>Complete Home Transformation</strong>
+                <div style="color:var(--accent)">★★★★★</div>
+              </div>
+              <p class="muted">"We had a new siding around our 1940 home and it looks more like a modern home now. We are very pleasure with Richard for doing a great job. A very pleasant, hard-working guy! My cat loved him and he would watch him doing the siding almost all day all week."</p>
+              <div style="margin-top:8px;font-size:14px;color:var(--muted)">— Carey P. • Verified Customer</div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <strong>Professional Commercial Coordination</strong>
+                <div style="color:var(--accent)">★★★★★</div>
+              </div>
+              <p class="muted">"Richard was great to work with for my commercial project. From start to finish he was helpful in explaining the most cost effective way to complete my job in a very professional and quality manner. He was very timely in coordinating with all my other contractors to ensure that my whole job gets done efficiently. Thanks for the hard work, Richard!"</p>
+              <div style="margin-top:8px;font-size:14px;color:var(--muted)">— InterMountain Auto Glass • Commercial Project</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt" id="about">
+        <div class="wrap">
+          <h2>Owner-Operated. Hands-On. Accountable.</h2>
+          <div style="margin-top:24px">
+            <div>
+              <p class="muted" style="margin:16px 0;line-height:1.6">
+                My name is Richard Walter, and I’m an owner-operator siding contractor. I’ve spent decades working hands-on in the trade, building my business on reliability and finishing what I start. I recently relocated to Oregon to be closer to family and am building my business here the same way I always have—by earning trust through results, one project at a time.
+              </p>
+              <p class="muted" style="margin:16px 0;line-height:1.6">
+                "I don’t claim to be the biggest company or the cheapest. What I can say is that <strong>once I take on a job, you won’t find someone who cares more about your project than me.</strong> You deal directly with me from start to finish. I don’t use subcontractors, and I don’t believe in sales pressure—just straightforward communication and solid work."
+              </p>
+              <div class="card" style="margin:24px 0">
+                <strong>Professional Credentials</strong>
+                <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px">
+                  <div>
+                    <div style="font-weight:600;color:var(--brand-text)">Experience & Expertise</div>
+                    <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
+                      <li>Decades of Hands-On Craftsmanship</li>
+                      <li>VSI Certified Platinum Level Craftsman</li>
+                      <li>EPA & State Lead-Safe Certified</li>
+                    </ul>
                   </div>
-                  <div class="muted" style="margin-top:4px">
-                    Free Estimates • <a href="mailto:waltersiding@gmail.com" style="text-decoration:none">waltersiding@gmail.com</a>
+                  <div>
+                    <div style="font-weight:600;color:var(--brand-text)">Licensed & Bonded</div>
+                    <ul style="margin:8px 0;padding-left:20px;color:var(--muted)">
+                      <li>Oregon License: #258038</li>
+                      <li>Washington License: #WALTESL759NE</li>
+                      <li>Idaho Registration: #RCE-69290</li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-
+      <section id="contact">
+        <div class="wrap">
+          <h2>Contact Me</h2>
+          <div class="grid">
+            <div class="card">
+              <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+                <div style="font-size:24px;color:var(--brand-text)">📞</div>
+                <strong>Talk Directly With the Owner</strong>
+              </div>
+              <p class="muted">For the fastest response and an honest answer about your project, reach out to me directly.</p>
+              <div style="font-size:24px;margin-top:16px;font-weight:700">
+                <a href="tel:+12088597796" style="text-decoration:none">(208) 859-7796</a>
+              </div>
+              <div style="margin-top:8px">
+                <a href="mailto:waltersiding@gmail.com" class="muted" style="text-decoration:none">waltersiding@gmail.com</a>
+              </div>
+              <p class="muted" style="font-size:14px;margin-top:12px;border-top:1px solid var(--card-border);padding-top:8px">Owner: Richard Walter</p>
+            </div>
+            <div class="card" style="grid-column: span 2">
+              <strong>Service Area</strong>
+              <p class="muted">Based in Portland and serving the surrounding communities in Oregon and Washington.</p>
+              <div style="margin-top:16px">
+                <div class="chips">
+                  <div class="chip">Portland</div>
+                  <div class="chip">Vancouver</div>
+                  <div class="chip">Beaverton</div>
+                  <div class="chip">Gresham</div>
+                  <div class="chip">Hillsboro</div>
+                  <div class="chip">Tigard</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
-        <div>© <span id="year"></span> Walter Siding — All rights reserved.</div>
-        <div class="muted">Serving the local community • <a href="#contact">Request a free estimate</a></div>
+      <div class="wrap" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+        <div>© <span id="year"></span> Walter Siding & Repair — All rights reserved.</div>
+        <div style="font-size:12px" class="muted">Walter Siding LLC, doing business as Walter Siding & Repair</div>
+        <div class="muted">
+          <a href="tel:+12088597796">(208) 859-7796</a> • Serving Portland & Surrounding Areas
+        </div>
+        <div class="muted">Licensed & Bonded in Oregon, Washington, and Idaho</div>
       </div>
     </footer>
 
@@ -457,106 +250,6 @@
       <img id="lightboxImg" src="" alt="Large project photo">
     </div>
 
-    <script>
-      // Small helper scripts: mobile menu, lightbox, form handling
-      const mobileMenu = document.getElementById('mobile-menu');
-      function toggleMenu(btn){
-        const menu = document.getElementById('mobile-menu');
-        const open = menu.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-        menu.setAttribute('aria-hidden', !open);
-      }
-      function closeMenu(){
-        const btn = document.querySelector('.mobile-toggle');
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.remove('open');
-        if(btn) btn.setAttribute('aria-expanded', false);
-        menu.setAttribute('aria-hidden', true);
-      }
-      function contactFromMenu(){
-        closeMenu();
-        document.getElementById('contact').scrollIntoView({behavior:'smooth'});
-      }
-
-      // Carousel functionality
-      const carousel = {
-        view: document.querySelector('.carousel-view img'),
-        thumbs: document.querySelectorAll('.thumb'),
-        navPrev: document.querySelector('.carousel-nav.prev'),
-        navNext: document.querySelector('.carousel-nav.next'),
-        currentIndex: 0,
-        
-        init() {
-          this.thumbs.forEach((thumb, index) => {
-            thumb.addEventListener('click', () => this.showImage(index));
-          });
-          
-          this.navPrev.addEventListener('click', () => this.navigate(-1));
-          this.navNext.addEventListener('click', () => this.navigate(1));
-          
-          // Enable lightbox on main image click
-          this.view.parentElement.addEventListener('click', () => {
-            openLightbox(this.currentIndex);
-          });
-          
-          // Update lightbox sources
-          this.updateLightboxSources();
-        },
-        
-        showImage(index) {
-          this.currentIndex = index;
-          const newSrc = this.thumbs[index].dataset.src;
-          this.view.src = newSrc;
-          
-          // Update active thumbnail
-          this.thumbs.forEach(t => t.classList.remove('active'));
-          this.thumbs[index].classList.add('active');
-          
-          // Scroll thumbnail into view if needed
-          this.thumbs[index].scrollIntoView({
-            behavior: 'smooth',
-            inline: 'center',
-            block: 'nearest'
-          });
-        },
-        
-        navigate(direction) {
-          let newIndex = this.currentIndex + direction;
-          if (newIndex < 0) newIndex = this.thumbs.length - 1;
-          if (newIndex >= this.thumbs.length) newIndex = 0;
-          this.showImage(newIndex);
-        },
-        
-        updateLightboxSources() {
-          // Update lightbox image sources
-          gallerySrcs = Array.from(this.thumbs).map(thumb => thumb.dataset.src);
-        }
-      };
-      
-      // Initialize carousel when page loads
-      window.addEventListener('load', () => carousel.init());
-      
-      // Lightbox functionality
-      const lightbox = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightboxImg');
-      let gallerySrcs = [];
-      
-      function openLightbox(i){
-        lbImg.src = gallerySrcs[i] || '';
-        lightbox.classList.add('open');
-        lightbox.setAttribute('aria-hidden', false);
-      }
-      
-      function closeLightbox(){
-        lightbox.classList.remove('open');
-        lightbox.setAttribute('aria-hidden', true);
-      }
-
-      // small runtime niceties
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      // Accessibility: close lightbox with Esc
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeLightbox(); closeMenu(); } });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
