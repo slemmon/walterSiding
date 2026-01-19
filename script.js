@@ -8,14 +8,25 @@ function toggleMenu(btn, event){
   const open = menu.classList.toggle('open');
   btn.setAttribute('aria-expanded', open);
   menu.setAttribute('aria-hidden', !open);
+  
+  if (open) {
+    // Move focus to first menu link
+    const firstLink = menu.querySelector('a');
+    if (firstLink) firstLink.focus();
+  }
 }
 
 function closeMenu(){
   const btn = document.querySelector('.mobile-toggle');
   const menu = document.getElementById('mobile-menu');
-  menu.classList.remove('open');
-  if(btn) btn.setAttribute('aria-expanded', false);
-  menu.setAttribute('aria-hidden', true);
+  if (menu.classList.contains('open')) {
+    menu.classList.remove('open');
+    if(btn) {
+      btn.setAttribute('aria-expanded', false);
+      btn.focus(); // Move focus back to button
+    }
+    menu.setAttribute('aria-hidden', true);
+  }
 }
 
 // Close menu when clicking outside
@@ -49,8 +60,26 @@ const carousel = {
     this.navNext.addEventListener('click', () => this.navigate(1));
     
     // Enable lightbox on main image click
+    this.view.parentElement.setAttribute('tabindex', '0');
+    this.view.parentElement.setAttribute('role', 'button');
+    this.view.parentElement.setAttribute('aria-label', 'Open image in large view');
     this.view.parentElement.addEventListener('click', () => {
       openLightbox(this.currentIndex);
+    });
+    this.view.parentElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(this.currentIndex);
+      }
+    });
+    
+    // Keyboard navigation for carousel
+    document.addEventListener('keydown', (e) => {
+      // Only navigate if the carousel or a thumb is focused
+      if (document.activeElement.closest('.carousel')) {
+        if (e.key === 'ArrowLeft') this.navigate(-1);
+        if (e.key === 'ArrowRight') this.navigate(1);
+      }
     });
     
     // Update lightbox sources
@@ -69,8 +98,12 @@ const carousel = {
     }
     
     // Update active thumbnail
-    this.thumbs.forEach(t => t.classList.remove('active'));
+    this.thumbs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
     this.thumbs[index].classList.add('active');
+    this.thumbs[index].setAttribute('aria-selected', 'true');
     
     // Scroll thumbnail into view if needed
     this.thumbs[index].scrollIntoView({
@@ -105,11 +138,16 @@ function openLightbox(i){
   lbImg.src = gallerySrcs[i] || '';
   lightbox.classList.add('open');
   lightbox.setAttribute('aria-hidden', false);
+  lightbox.focus(); // Move focus to lightbox
 }
 
 function closeLightbox(){
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden', true);
+  if (lightbox.classList.contains('open')) {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', true);
+    // Move focus back to the main carousel view
+    carousel.view.parentElement.focus();
+  }
 }
 
 // small runtime niceties

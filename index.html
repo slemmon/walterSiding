@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" href="images/logo_small.PNG">
   </head>
   <body>
+    <a href="#home" class="skip-link">Skip to main content</a>
     <header class="site">
       <div class="wrap nav">
         <div class="brand">
@@ -34,7 +35,7 @@
           <a href="#testimonials">Testimonials</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
-          <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Call or Text Me</button>
+          <a href="#contact" class="cta">Call or Text Me</a>
         </nav>
 
         <div class="header-actions-mobile">
@@ -44,18 +45,20 @@
           </a>
           <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this, event)">&#9776;</button>
         </div>
-        <div id="mobile-menu" class="mobile-menu" role="menu" aria-hidden="true">
-          <a href="#services" onclick="closeMenu()">Services</a>
-          <a href="#gallery" onclick="closeMenu()">Gallery</a>
-          <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
-          <a href="#about" onclick="closeMenu()">About</a>
-          <a href="#contact" onclick="closeMenu()">Contact</a>
-          <div style="padding: 8px 16px; font-weight:700; border-top: 1px solid var(--card-border); margin-top: 4px;">
-            <a href="tel:+12088597796" style="padding:0; display:inline">📞 (208) 859-7796</a>
-          </div>
-          <div style="padding: 0 16px 8px;">
-            <button class="cta" style="width:100%" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'}); closeMenu();">Call or Text Me</button>
-          </div>
+        <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+          <nav aria-label="Mobile navigation">
+            <a href="#services" onclick="closeMenu()">Services</a>
+            <a href="#gallery" onclick="closeMenu()">Gallery</a>
+            <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+            <a href="#about" onclick="closeMenu()">About</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
+            <div style="padding: 8px 16px; font-weight:700; border-top: 1px solid var(--card-border); margin-top: 4px;">
+              <a href="tel:+12088597796" style="padding:0; display:inline">📞 (208) 859-7796</a>
+            </div>
+            <div style="padding: 0 16px 8px;">
+              <a href="#contact" class="cta" style="width:100%; text-align:center" onclick="closeMenu()">Call or Text Me</a>
+            </div>
+          </nav>
         </div>
       </div>
     </header>
@@ -85,15 +88,15 @@
           <p class="muted">Expert repair and installation for vinyl and fiber cement—honest advice and thoughtful results on every project.</p>
           <div class="grid services-grid" style="margin-top:16px">
             <div class="card">
-              <strong>Siding Repair (Vinyl Welcome)</strong>
+              <h3>Siding Repair (Vinyl Welcome)</h3>
               <p class="muted">Handling the small projects many companies avoid. I specialize in vinyl repairs, rotten board replacement, and fixing loose panels thoughtfully so the job lasts.</p>
             </div>
             <div class="card">
-              <strong>Custom Trim & Detail Work</strong>
+              <h3>Custom Trim & Detail Work</h3>
               <p class="muted">Specializing in window, door, and corner trim—both repairs and new installation. I focus on the details that keep your home weather-tight and looking its best.</p>
             </div>
             <div class="card">
-              <strong>Full Siding Installation</strong>
+              <h3>Full Siding Installation</h3>
               <p class="muted">When it’s time for a complete refresh, I handle full siding replacement—including vinyl and fiber cement—with the same accountability and no subcontractors.</p>
             </div>
           </div>
@@ -112,30 +115,30 @@
               <div class="carousel-view">
                 <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding, trim, soffit and fascia installation">
               </div>
-              <div class="carousel-caption">Full Siding, Trim, Soffit & Fascia Installation</div>
+              <div class="carousel-caption" aria-live="polite">Full Siding, Trim, Soffit & Fascia Installation</div>
               <button class="carousel-nav next" aria-label="Next image">❯</button>
             </div>
             
             <!-- Thumbnail strip -->
             <div class="carousel-thumbs">
-            <div class="thumb-strip">
-              <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg" data-caption="Full Siding, Trim, Soffit & Fascia Installation">
-                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full siding project">
+            <div class="thumb-strip" role="tablist">
+              <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg" data-caption="Full Siding, Trim, Soffit & Fascia Installation" aria-label="View Full Siding, Trim, Soffit & Fascia Installation" aria-selected="true" role="tab">
+                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="">
               </button>
-              <button class="thumb" data-src="images/Before.jpg" data-caption="Project: Before Renovation">
-                <img src="images/Before.jpg" alt="Before renovation">
+              <button class="thumb" data-src="images/Before.jpg" data-caption="Project: Before Renovation" aria-label="View Before Renovation" aria-selected="false" role="tab">
+                <img src="images/Before.jpg" alt="">
               </button>
-              <button class="thumb" data-src="images/After.jpg" data-caption="Project: After Renovation">
-                <img src="images/After.jpg" alt="After renovation">
+              <button class="thumb" data-src="images/After.jpg" data-caption="Project: After Renovation" aria-label="View After Renovation" aria-selected="false" role="tab">
+                <img src="images/After.jpg" alt="">
               </button>
-              <button class="thumb" data-src="images/Corten Steel Fireplace 2.jpg" data-caption="Custom Corten Steel Fireplace Detail">
-                <img src="images/Corten Steel Fireplace 2.jpg" alt="Corten steel fireplace">
+              <button class="thumb" data-src="images/Corten Steel Fireplace 2.jpg" data-caption="Custom Corten Steel Fireplace Detail" aria-label="View Custom Corten Steel Fireplace Detail" aria-selected="false" role="tab">
+                <img src="images/Corten Steel Fireplace 2.jpg" alt="">
               </button>
-              <button class="thumb" data-src="images/IM Glass Before.jpg" data-caption="Commercial Project: Before">
-                <img src="images/IM Glass Before.jpg" alt="IM Glass before">
+              <button class="thumb" data-src="images/IM Glass Before.jpg" data-caption="Commercial Project: Before" aria-label="View Commercial Project Before" aria-selected="false" role="tab">
+                <img src="images/IM Glass Before.jpg" alt="">
               </button>
-              <button class="thumb" data-src="images/IM Glass Steel Job-After.jpg" data-caption="Commercial Project: Steel Siding After">
-                <img src="images/IM Glass Steel Job-After.jpg" alt="IM Glass after">
+              <button class="thumb" data-src="images/IM Glass Steel Job-After.jpg" data-caption="Commercial Project: Steel Siding After" aria-label="View Commercial Project After" aria-selected="false" role="tab">
+                <img src="images/IM Glass Steel Job-After.jpg" alt="">
               </button>
             </div>
             </div>
@@ -149,16 +152,16 @@
           <div class="grid" style="margin-top:16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <strong>Complete Home Transformation</strong>
-                <div style="color:var(--accent)">★★★★★</div>
+                <h3>Complete Home Transformation</h3>
+                <div style="color:var(--accent)" aria-label="5 stars">★★★★★</div>
               </div>
               <p class="muted">"We had a new siding around our 1940 home and it looks more like a modern home now. We are very pleasure with Richard for doing a great job. A very pleasant, hard-working guy! My cat loved him and he would watch him doing the siding almost all day all week."</p>
               <div style="margin-top:8px;font-size:14px;color:var(--muted)">— Carey P. • Verified Customer</div>
             </div>
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <strong>Professional Commercial Coordination</strong>
-                <div style="color:var(--accent)">★★★★★</div>
+                <h3>Professional Commercial Coordination</h3>
+                <div style="color:var(--accent)" aria-label="5 stars">★★★★★</div>
               </div>
               <p class="muted">"Richard was great to work with for my commercial project. From start to finish he was helpful in explaining the most cost effective way to complete my job in a very professional and quality manner. He was very timely in coordinating with all my other contractors to ensure that my whole job gets done efficiently. Thanks for the hard work, Richard!"</p>
               <div style="margin-top:8px;font-size:14px;color:var(--muted)">— InterMountain Auto Glass • Commercial Project</div>
@@ -179,7 +182,7 @@
                 "I don’t claim to be the biggest company or the cheapest. What I can say is that <strong>once I take on a job, you won’t find someone who cares more about your project than me.</strong> You deal directly with me from start to finish. I don’t use subcontractors, and I don’t believe in sales pressure—just straightforward communication and solid work."
               </p>
               <div class="card" style="margin:24px 0">
-                <strong>Professional Credentials</strong>
+                <h3>Professional Credentials</h3>
                 <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px">
                   <div>
                     <div style="font-weight:600;color:var(--brand-text)">Experience & Expertise</div>
@@ -210,8 +213,8 @@
           <div class="grid contact-grid">
             <div class="card">
               <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
-                <div style="font-size:24px;color:var(--brand-text)">📞</div>
-                <strong>Talk Directly With the Owner</strong>
+                <div style="font-size:24px;color:var(--brand-text)" aria-hidden="true">📞</div>
+                <h3>Talk Directly With the Owner</h3>
               </div>
               <p class="muted">For the fastest response and an honest answer about your project, reach out to me directly.</p>
               <div style="font-size:24px;margin-top:16px;font-weight:700">
@@ -223,7 +226,7 @@
               <p class="muted" style="font-size:14px;margin-top:12px;border-top:1px solid var(--card-border);padding-top:8px">Owner: Richard Walter</p>
             </div>
             <div class="card service-area">
-              <strong>Service Area</strong>
+              <h3>Service Area</h3>
               <p class="muted">Based in Portland and serving the surrounding communities in Oregon and Washington.</p>
               <div style="margin-top:16px">
                 <div class="chips">
@@ -253,7 +256,7 @@
     </footer>
 
     <!-- Lightbox for gallery images -->
-    <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true" aria-label="Image preview" onclick="closeLightbox()">
+    <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true" aria-label="Image preview" onclick="closeLightbox()" tabindex="-1">
       <img id="lightboxImg" src="" alt="Large project photo">
     </div>
 
