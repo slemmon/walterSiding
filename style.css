@@ -97,6 +97,7 @@ nav.desktop{display:flex;gap:20px;align-items:center}
   text-decoration:none;
   display:inline-block;
   transition: transform 0.1s, filter 0.2s, background-color 0.2s;
+  white-space: nowrap;
 }
 .cta:hover{
   filter: brightness(1.15);
@@ -279,6 +280,12 @@ footer{padding:30px 0;color:var(--muted);font-size:14px}
   }
 }
 
+@media (max-width: 1100px) {
+  nav.desktop { gap: 12px; }
+  .nav { gap: 12px; }
+  .tagline { display: none; }
+}
+
 @media (max-width: 900px){
   body {
     --side-padding: 32px;
@@ -288,6 +295,9 @@ footer{padding:30px 0;color:var(--muted);font-size:14px}
   .hero{flex-direction:column}
   .hero-left{padding-left:var(--side-padding)}
   .hero-right{order:-1}
+  .header-phone { display: none; }
+  nav.desktop { gap: 8px; }
+  .nav { gap: 8px; }
 }
 
 @media (max-width:700px){
