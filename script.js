@@ -155,3 +155,37 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // Accessibility: close lightbox with Esc
 document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeLightbox(); closeMenu(); } });
+
+/**
+ * Google Analytics Event Tracking
+ * Tracks clicks on phone numbers, emails, and CTA buttons.
+ */
+function trackEvent(category, action, label) {
+  if (typeof gtag === 'function') {
+    gtag('event', action, {
+      'event_category': category,
+      'event_label': label
+    });
+  }
+}
+
+// Initialize event tracking when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Track phone clicks
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', () => trackEvent('Contact', 'Call', 'Phone Link'));
+  });
+
+  // Track email clicks
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', () => trackEvent('Contact', 'Email', 'Email Link'));
+  });
+
+  // Track CTA button clicks
+  document.querySelectorAll('.cta, .cta-mini').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim() || btn.getAttribute('aria-label') || 'CTA Button';
+      trackEvent('Engagement', 'Click', label);
+    });
+  });
+});
