@@ -107,9 +107,22 @@ nav.desktop{display:flex;gap:20px;align-items:center}
   transform: translateY(0);
 }
 
+.mobile-toggle{display:none;background:none;border:0;font-size:28px;flex:0;color:var(--text);padding:4px 8px;cursor:pointer;line-height:1}
+.header-actions-mobile{display:none;align-items:center;gap:12px}
+.cta-mini{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--brand);
+  color:var(--cta-text) !important;
+  width:40px;
+  height:40px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:18px;
+  box-shadow:var(--shadow);
+}
 /* Mobile nav */
-.mobile-toggle{display:none;background:none;border:0;font-size:20px;flex:0}
-.mobile-nav{display:none}
 /* Ensure the mobile menu is hidden by default on larger screens */
 .mobile-menu{display:none}
 
@@ -307,7 +320,6 @@ footer{padding:30px 0;color:var(--muted);font-size:14px}
   }
   .nav{align-items:center}
   nav.desktop{display:none}
-  .mobile-toggle{display:block}
   .mobile-nav{display:block}
   .mobile-menu{display:none;background:var(--mobile-menu-bg);border-radius:12px;position:absolute;right:20px;top:64px;box-shadow:var(--shadow);padding:8px;width:220px;z-index:100}
   .mobile-menu.open{display:block}
@@ -324,7 +336,9 @@ footer{padding:30px 0;color:var(--muted);font-size:14px}
   .grid{grid-template-columns:1fr}
   header.site{padding:12px 0}
   .hero-left{padding-left:0}
-  
+  .header-actions-mobile{display:flex}
+  .mobile-toggle{display:block}
+
   /* Carousel mobile adjustments */
   .carousel-main {
     margin: 0 20px;  /* Make room for nav buttons */

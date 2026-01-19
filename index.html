@@ -37,7 +37,10 @@
           <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Call or Text Me</button>
         </nav>
 
-        <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this, event)">&#9776;</button>
+        <div class="header-actions-mobile">
+          <a href="tel:+12088597796" class="cta-mini" aria-label="Call Me">📞</a>
+          <button class="mobile-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu(this, event)">&#9776;</button>
+        </div>
         <div id="mobile-menu" class="mobile-menu" role="menu" aria-hidden="true">
           <a href="#services" onclick="closeMenu()">Services</a>
           <a href="#gallery" onclick="closeMenu()">Gallery</a>
