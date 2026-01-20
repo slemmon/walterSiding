@@ -156,7 +156,7 @@ nav.desktop{display:flex;gap:20px;align-items:center}
 .hero-left{flex:1}
 .eyebrow{color:var(--muted);font-weight:600}
 h1{font-size:clamp(28px,4.5vw,44px);margin:10px 0 16px;line-height:1.05}
-p.lead{color:var(--muted);max-width:60ch}
+p.lead{color:var(--muted);max-width:88ch}
 .hero-cta{display:flex;gap:12px;margin-top:18px}
 
 /* Cards */
