@@ -16,6 +16,16 @@
 
       gtag('config', 'G-0164EZFTPG');
     </script>
+
+    <!-- PostHog -->
+    <script>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      posthog.init('phc_Qu3WBuymqAUMaPHe8qdLd7Ha0X0sNNTZwzgXIT6Ulk3', {
+          api_host: 'https://us.i.posthog.com',
+          person_profiles: 'always',
+          defaults: '2025-11-30'
+      })
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="Owner-operated siding repair and installation in Portland, OR. Small fix-ups welcome. Licensed and bonded in OR, WA, and ID. No subcontractors." />
@@ -64,6 +74,36 @@
         { "@type": "City", "name": "Hillsboro", "sameAs": "https://en.wikipedia.org/wiki/Hillsboro,_Oregon" },
         { "@type": "City", "name": "Tigard", "sameAs": "https://en.wikipedia.org/wiki/Tigard,_Oregon" }
       ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Siding Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Siding Repair",
+              "description": "Repairing damaged, loose, or rotten siding including vinyl and fiber cement."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Siding Installation",
+              "description": "Full siding replacement and installation using James Hardie, vinyl, and wood."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dry Rot Repair",
+              "description": "Identifying and replacing wood rot in siding and trim."
+            }
+          }
+        ]
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Portland",
@@ -179,7 +219,7 @@
             <div class="carousel-thumbs">
             <div class="thumb-strip" role="tablist">
               <button class="thumb active" data-src="images/Full Siding, Trim, Soffit & Fascia.jpg" data-caption="Full Siding, Trim, Soffit & Fascia Installation" aria-label="View Full Siding, Trim, Soffit & Fascia Installation" aria-selected="true" role="tab">
-                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full home siding repair Portland">
+                <img src="images/Full Siding, Trim, Soffit & Fascia.jpg" alt="Full home siding repair">
               </button>
               <button class="thumb" data-src="images/Before.jpg" data-caption="Project: Before Renovation" aria-label="View Before Renovation" aria-selected="false" role="tab">
                 <img src="images/Before.jpg" alt="Damaged siding before repair">

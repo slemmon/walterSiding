@@ -157,14 +157,23 @@ document.getElementById('year').textContent = new Date().getFullYear();
 document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeLightbox(); closeMenu(); } });
 
 /**
- * Google Analytics Event Tracking
+ * Analytics Event Tracking (Google Analytics & PostHog)
  * Tracks clicks on phone numbers, emails, and CTA buttons.
  */
 function trackEvent(category, action, label) {
+  // Google Analytics
   if (typeof gtag === 'function') {
     gtag('event', action, {
       'event_category': category,
       'event_label': label
+    });
+  }
+  
+  // PostHog
+  if (typeof posthog === 'object') {
+    posthog.capture(action, {
+      category: category,
+      label: label
     });
   }
 }
